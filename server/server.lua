@@ -84,7 +84,7 @@ CHANGELOG: %s
                                     )
                                 end
                             else
-                                print('There was an Error checking rl_logs version! | Ocorreu um erro verificando a versão do rl_logs')
+                                print('There was an Error checking rl_framework version! | Ocorreu um erro verificando a versão do rl_logs')
                             end
                         end,
                         'GET'

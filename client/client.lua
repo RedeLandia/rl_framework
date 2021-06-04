@@ -12,6 +12,24 @@
 --
 -- Copyright (c) RedeLandia 2021. Todos os Direitos Reservados!
 
+--=-- rl_framework Default Command
+RegisterCommand('rlframework', function(source, args)
+
+    if args[1] == 'commands' then
+        sendChatMessage("~y~-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+        sendChatMessage("~r~Commands of rl_framework:")
+        sendChatMessage("~b~/car <car>              ~w~Spawns a Car")
+        sendChatMessage("~b~/clearloadout           ~w~Clear a Loadout")
+        sendChatMessage("~b~/tpm                    ~w~Teleports to your Waipoint")
+        sendChatMessage("~b~/god                    ~w~Enable / Disable God Mode")
+        sendChatMessage("~b~/giveweapon <weapon>    ~w~Give you an Weapon")
+        sendChatMessage("~y~-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+    else
+        sendChatMessage("~y~-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+        sendChatMessage("~r~Please put an Valid Subcommand!")
+        sendChatMessage("~y~-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+    end
+end)
 
 --=-- Give Weapon --=--
 RegisterCommand('giveweapon', function(source, args)
@@ -61,6 +79,47 @@ RegisterCommand('god', function(source, args)
 end)
 
 
+
+--=-- Disable Police Method --=--
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        DisablePlayerVehicleRewards(GetPlayerPed(-1))
+
+        if Config.enableCops == false then
+            SetPlayerWantedLevel(PlayerId(), 0, false)
+            SetPlayerWantedLevelNow(PlayerId(), false)
+            SetPoliceIgnorePlayer(PlayerId(), true)
+            SetDispatchCopsForPlayer(PlayerId(), false)
+            SetDitchPoliceModels()
+            SetMaxWantedLevel(0)
+        elseif Config.enableCops == true then
+            SetPoliceIgnorePlayer(PlayerId(), false)
+            SetDispatchCopsForPlayer(PlayerId(), true)
+            SetMaxWantedLevel(5)
+        end
+
+        local playerPed = GetPlayerPed(-1)
+        local playerLocalisation = GetEntityCoords(playerPed)
+        DisablePlayerVehicleRewards(PlayerId(-1))
+    end
+end)
+
+
+--=-- Cash Give to Player --=--
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+
+        local rPlayerPed = GetPlayerPed(-1)
+
+        StatSetInt("MP0_WALLET_BALANCE", Config.cashGive, false)
+
+    end
+
+end)
+
 --=-- Functions --=--
 
     --=-- Spawn Car --=--
@@ -95,9 +154,16 @@ function giveTheWeaponToPed(hash)
     GiveWeaponToPed(GetPlayerPed(-1), GetHashKey(hash), 999, false, false)
 end
 
+    --=-- Chat Message --=--
+function sendChatMessage(text)
+    TriggerEvent("chatMessage", "[ RL_Framework ]", {255,0,255}, text)
+end
+
 
 --=-- Command Suggestion in Chat --=--
 Citizen.CreateThread(function()
+    TriggerEvent('chat:addSuggestion', '/rlframework', 'Default RL_FRAMEWORK command',{{name="Subcommand", help="Subcommands: commands"}})
+    TriggerEvent('chat:addSuggestion', '/god', 'You are gonna be an god :)',{})
     TriggerEvent('chat:addSuggestion', '/tpm', 'Teleport you to your current waypoint!',{})
     TriggerEvent('chat:addSuggestion', '/clearloadout', 'Remove all your weapons from your inventory!',{})
     TriggerEvent('chat:addSuggestion', '/car', 'Spawns an random car',{})

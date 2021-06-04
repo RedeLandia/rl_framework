@@ -15,9 +15,11 @@
 
 Config = {}
 
-Config.weapons = {"WEAPON_RPG", "WEAPON_COMBATPISTOL", "WEAPON_PISTOL"}
+--Config.weapons = {"WEAPON_RPG", "WEAPON_COMBATPISTOL", "WEAPON_PISTOL"}
+
+Config.enableCops = false -- Here you can enable or Disable the Cops Star
+
+Config.cashGive = 65535
 
 
---=-- Version of the Script [ DON'T CHANGE!!! ]
-
-Config.versionCheck = "1.0.0"
+Config.versionCheck = "1.0.1" -- Version of the Script [ DON'T CHANGE!!! ]

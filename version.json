@@ -1,5 +1,5 @@
 {
-  "date": "June 03, 2021",
-  "version": "1.0.0",
-  "changelog": "No Changelog [ NEW SCRIPT ]"
+  "date": "June 05, 2021",
+  "version": "1.0.1",
+  "changelog": "Added '/rlframework' command | Added Money Give | Added option to remove / allow police in Config.lua"
 }
